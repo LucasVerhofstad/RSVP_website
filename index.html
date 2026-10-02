@@ -1,42 +1,500 @@
-Bruiloft Marina en Lucas
-Ga je met ons meevieren?
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bruiloft Lucas & Marina</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-Lucas & Marina
-**
+  <style>
+    :root {
+      --primary-color: #5c6b57;
+      --primary-hover: #485444;
+      --bg-color: #faf8f5;
+      --card-bg: #ffffff;
+      --text-color: #2c302e;
+      --subtext-color: #666;
+      --border-color: #e2ded8;
+      --accent-color: #d4a373;
+    }
 
-RSVP gegevens ophalen...
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-**
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
 
-Oeps, er ging iets mis
-Er is helaas wat misgegaan. Neem a.u.b. contact op met de ceremoniemeester.
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 20px auto;
+    }
 
-Welkom! Vul hieronder je RSVP in voor onze bruiloft. We horen heel graag of je erbij bent. Je kunt altijd via je unieke link terugkomen om je antwoorden aan te passen.
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-Opslaan & Bekijk Praktische Info
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+    }
 
-**
+    .subtitle {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+    }
 
-Bedankt voor je RSVP!
-Je antwoorden zijn succesvol opgeslagen.
+    .intro-text {
+      font-size: 0.95rem;
+      color: var(--subtext-color);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 15px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
 
-Praktische Informatie
-** Locatie
-Het Kasteel / De Feestlocatie
+    .view {
+      display: none;
+    }
 
+    .view.active {
+      display: block;
+      animation: fadeIn 0.4s ease-in-out;
+    }
 
-Mooie Trouwlaan 1, 1234 AB Stad
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-** Programma & Tijden
-Ceremonie: 14:00 uur (Inloop vanaf 13:30)
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--border-color);
+    }
 
-Diner: 17:30 uur
+    .guest-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
 
-Avondfeest: 20:30 uur t/m 01:00 uur
+    .form-group {
+      margin-bottom: 20px;
+    }
 
-** Cadeautip
-Jouw aanwezigheid is voor ons het mooiste cadeau! Mocht je ons toch iets willen geven, dan sparen we voor onze droomreis. ✉️
+    label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
 
-** RSVP Aanpassen
-const SCRIPT_URL = https://script.google.com/macros/s/AKfycbzzcZw7lORLUgaNX4G7AIZK6TMtKtIJP4r-pwlDayx_IIvA514BRLhgyFmFRPkHc_tiiA/exec
+    .radio-group {
+      display: flex;
+      gap: 15px;
+    }
 
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: normal;
+      background: var(--bg-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+    }
+
+    .radio-label:hover {
+      border-color: var(--primary-color);
+    }
+
+    .radio-label input[type="radio"] {
+      accent-color: var(--primary-color);
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--bg-color);
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: #fff;
+    }
+
+    .conditional-field {
+      display: none;
+      margin-top: 15px;
+      padding-left: 15px;
+      border-left: 3px solid var(--primary-color);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      margin-top: 15px;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-color);
+      color: var(--primary-hover);
+    }
+
+    .spinner {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--subtext-color);
+    }
+
+    .spinner i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .error-box {
+      text-align: center;
+      padding: 30px;
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      border-radius: 8px;
+      color: #c53030;
+    }
+
+    .info-section {
+      margin-bottom: 20px;
+    }
+
+    .info-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-section p {
+      font-size: 0.95rem;
+      color: var(--subtext-color);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="subtitle">Ga je met ons meevieren?</div>
+      <h1>Lucas & Marina</h1>
+    </header>
+
+    <!-- LADER / SPINNER -->
+    <div id="loader" class="spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>RSVP gegevens ophalen...</p>
+    </div>
+
+    <!-- FOUTMELDING SCHERM -->
+    <div id="error-view" class="view">
+      <div class="error-box">
+        <i class="fas fa-exclamation-circle fa-2x" style="margin-bottom:10px;"></i>
+        <h2>Oeps, er ging iets mis</h2>
+        <p id="error-message">Er is helaas wat misgegaan. Neem a.u.b. contact op met de ceremoniemeester.</p>
+      </div>
+    </div>
+
+    <!-- RSVP FORMULIER SCHERM -->
+    <div id="rsvp-view" class="view">
+      <div class="intro-text" style="margin-bottom:20px;">
+        Welkom! Vul hieronder je RSVP in voor onze bruiloft. We horen heel graag of je erbij bent. Je kunt altijd via je unieke link terugkomen om je antwoorden aan te passen.
+      </div>
+      
+      <form id="rsvp-form">
+        <div id="guests-container"></div>
+        <button type="submit" class="btn" id="save-btn">
+          <span>Opslaan & Bekijk Praktische Info</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- PRAKTISCHE INFORMATIE SCHERM -->
+    <div id="info-view" class="view">
+      <div class="card">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <i class="fas fa-check-circle fa-3x" style="color: var(--primary-color); margin-bottom: 10px;"></i>
+          <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem;">Bedankt voor je RSVP!</h2>
+          <p style="color: var(--subtext-color);">Je antwoorden zijn succesvol opgeslagen.</p>
+        </div>
+
+        <hr style="border:0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+        <h2 class="guest-title" style="border:none; margin-bottom:15px;">Praktische Informatie</h2>
+
+        <div class="info-section">
+          <h3><i class="fas fa-map-marker-alt"></i> Locatie</h3>
+          <p>Het Kasteel / De Feestlocatie<br>Mooie Trouwlaan 1, 1234 AB Stad</p>
+        </div>
+
+        <div class="info-section">
+          <h3><i class="fas fa-clock"></i> Programma & Tijden</h3>
+          <p><strong>Ceremonie:</strong> 14:00 uur (Inloop vanaf 13:30)</p>
+          <p><strong>Diner:</strong> 17:30 uur</p>
+          <p><strong>Avondfeest:</strong> 20:30 uur t/m 01:00 uur</p>
+        </div>
+
+        <div class="info-section">
+          <h3><i class="fas fa-gift"></i> Cadeautip</h3>
+          <p>Jouw aanwezigheid is voor ons het mooiste cadeau! Mocht je ons toch iets willen geven, dan sparen we voor onze droomreis. ✉️</p>
+        </div>
+
+        <button type="button" onclick="showView('rsvp-view')" class="btn btn-secondary">
+          <i class="fas fa-edit"></i> RSVP Aanpassen
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzcZw7lORLUgaNX4G7AIZK6TMtKtIJP4r-pwlDayx_IIvA514BRLhgyFmFRPkHc_tiiA/exec";
+
+    let guestsData = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+
+      if (!token) {
+        showError("Geen geldige uitnodigingslink gevonden. Controleer de URL of neem contact op met de ceremoniemeester.");
+        return;
+      }
+
+      fetchGuests(token);
+    });
+
+    function showView(viewId) {
+      document.getElementById('loader').style.display = 'none';
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+    }
+
+    function showError(msg) {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('error-message').innerText = msg;
+      showView('error-view');
+    }
+
+    function fetchGuests(token) {
+      fetch(`${SCRIPT_URL}?token=${encodeURIComponent(token)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            guestsData = data.guests;
+            renderForm(guestsData);
+            showView('rsvp-view');
+          } else {
+            showError(data.message || "Token niet gevonden.");
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          showError("Er is een netwerkfout opgetreden bij het ophalen van gegevens.");
+        });
+    }
+
+    function renderForm(guests) {
+      const container = document.getElementById('guests-container');
+      container.innerHTML = '';
+
+      guests.forEach((guest, index) => {
+        const isDaggast = guest.typeGast.toLowerCase() === 'daggast';
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        let fieldsHTML = '';
+
+        if (isDaggast) {
+          fieldsHTML += `
+            ${createRadioGroup(index, 'aanwezigCeremonie', 'Aanwezig bij de ceremonie?', guest.aanwezigCeremonie)}
+            ${createRadioGroup(index, 'aanwezigDiner', 'Aanwezig bij het diner?', guest.aanwezigDiner, `toggleConditional(${index}, 'diner')`)}
+            
+            <div id="conditional-diner-${index}" class="conditional-field" style="display: ${guest.aanwezigDiner === 'ja' ? 'block' : 'none'};">
+              <div class="form-group">
+                <label for="dieet-${index}">Dieetwensen / allergieën diner:</label>
+                <input type="text" id="dieet-${index}" name="guests[${index}][dieetwensenDiner]" value="${guest.dieetwensenDiner || ''}" placeholder="bijv. Vegetarisch, Notenallergie">
+              </div>
+            </div>
+
+            ${createRadioGroup(index, 'aanwezigFeest', 'Aanwezig bij het feest?', guest.aanwezigFeest, `toggleConditional(${index}, 'feest')`)}
+            
+            <div id="conditional-feest-${index}" class="conditional-field" style="display: ${guest.aanwezigFeest === 'ja' ? 'block' : 'none'};">
+              ${createRadioGroup(index, 'blijftSlapen', 'Blijf je slapen?', guest.blijftSlapen)}
+            </div>
+          `;
+        } else {
+          fieldsHTML += `
+            ${createRadioGroup(index, 'aanwezigFeest', 'Aanwezig bij het feest?', guest.aanwezigFeest)}
+          `;
+        }
+
+        fieldsHTML += `
+          <div class="form-group" style="margin-top:15px;">
+            <label for="opmerking-${index}">Opmerking / Berichtje voor het bruidspaar:</label>
+            <textarea id="opmerking-${index}" name="guests[${index}][opmerking]" rows="3" placeholder="Optioneel...">${guest.opmerking || ''}</textarea>
+          </div>
+        `;
+
+        card.innerHTML = `
+          <h2 class="guest-title">${guest.voornaam} ${guest.achternaam}</h2>
+          ${fieldsHTML}
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function createRadioGroup(index, fieldName, labelText, currentValue, onChangeFn = '') {
+      const isJa = currentValue === 'ja' ? 'checked' : '';
+      const isNee = currentValue === 'nee' ? 'checked' : '';
+
+      return `
+        <div class="form-group">
+          <label>${labelText}</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="guests[${index}][${fieldName}]" value="ja" ${isJa} onchange="${onChangeFn}"> Ja
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="guests[${index}][${fieldName}]" value="nee" ${isNee} onchange="${onChangeFn}"> Nee
+            </label>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleConditional(index, type) {
+      if (type === 'diner') {
+        const selected = document.querySelector(`input[name="guests[${index}][aanwezigDiner]"]:checked`)?.value;
+        const target = document.getElementById(`conditional-diner-${index}`);
+        target.style.display = selected === 'ja' ? 'block' : 'none';
+      } else if (type === 'feest') {
+        const selected = document.querySelector(`input[name="guests[${index}][aanwezigFeest]"]:checked`)?.value;
+        const target = document.getElementById(`conditional-feest-${index}`);
+        if (target) target.style.display = selected === 'ja' ? 'block' : 'none';
+      }
+    }
+
+    document.getElementById('rsvp-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const saveBtn = document.getElementById('save-btn');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opslaan...';
+
+      const updates = guestsData.map((guest, index) => {
+        const getRadioVal = (field) => document.querySelector(`input[name="guests[${index}][${field}]"]:checked`)?.value || '';
+        const getTextVal = (id) => document.getElementById(`${id}-${index}`)?.value || '';
+
+        return {
+          sheetRow: guest.sheetRow,
+          aanwezigCeremonie: getRadioVal('aanwezigCeremonie'),
+          aanwezigDiner: getRadioVal('aanwezigDiner'),
+          dieetwensenDiner: getTextVal('dieet'),
+          aanwezigFeest: getRadioVal('aanwezigFeest'),
+          blijftSlapen: getRadioVal('blijftSlapen'),
+          opmerking: document.getElementById(`opmerking-${index}`)?.value || ''
+        };
+      });
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ updates: updates })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          showView('info-view');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('Fout bij opslaan: ' + data.message);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Er is een fout opgetreden bij het verzenden van je antwoorden.');
+      })
+      .finally(() => {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<span>Opslaan & Bekijk Praktische Info</span>';
+      });
+    });
+  </script>
+</body>
+</html>
