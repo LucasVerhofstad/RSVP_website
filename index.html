@@ -284,7 +284,53 @@
     </div>
 
     <!-- PRAKTISCHE INFORMATIE SCHERM -->
-    <div id="info-view" class="view">
+    <div id="info-view-dag" class="view">
+      <div class="card">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <i class="fas fa-check-circle fa-3x" style="color: var(--primary-color); margin-bottom: 10px;"></i>
+          <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem;">Bedankt voor je RSVP!</h2>
+          <p style="color: var(--subtext-color);">Je antwoorden zijn succesvol opgeslagen.</p>
+        </div>
+
+        <hr style="border:0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+
+        <h2 class="guest-title" style="border:none; margin-bottom:15px;">Praktische Informatie</h2>
+
+        <div class="info-section">
+          <h3><i class="fas fa-map-marker-alt"></i> Locaties</h3>
+          <p>Kasteel Hernen / De Ceremonielocatie<br>Dorpsstraat 40, 6616 AH Hernen</p>
+          <br />
+          <p>Beek / Diner, Afterparty en Overnachting<br>Elzenweg 22, 6573 EM Beek (gem Berg en Dal)</p>
+          <br />
+          <p>Fort Lent / De Feestlocatie<br>Bemmelsedijk 4, 6663 KZ Lent</p>
+        </div>
+
+        <div class="info-section">
+          <h3><i class="fas fa-clock"></i> Bus tijden</h3>
+          <p><strong> 13:00 uur</strong> Bus vertrekt vanaf Beek </p>
+          <p><strong> 13:20 uur</strong> Bus vertrekt vanaf Fort Lent </p> <br />
+          <p><strong>Ceremonie & Borrel</strong>  </p> 
+          <p><strong> 17:30 uur</strong> Bus vertrekt vanaf Kasteel Hernen </p> <br />
+          <p><strong> Diner </strong></p>
+          <p><strong> 20:00 uur</strong> Bus vertrekt vanaf Beek </p> <br />
+          <p><strong>Feest</strong>  </p>
+          <p><strong> 01:00 uur</strong> Bus vertrekt vanaf Fort Lent </p> <br />
+          <p><strong>Afterparty</strong>  </p>
+        </div>
+
+        <div class="info-section">
+          <h3><i class="fas fa-gift"></i> Cadeautip</h3>
+          <p>Jouw aanwezigheid is voor ons het mooiste cadeau! Mocht je ons toch iets willen geven, dan sparen we voor onze droomreis. ✉️</p>
+        </div>
+
+        <button type="button" onclick="showView('rsvp-view')" class="btn btn-secondary">
+          <i class="fas fa-edit"></i> RSVP Aanpassen
+        </button>
+      </div>
+    </div>
+
+        <!-- PRAKTISCHE INFORMATIE SCHERM -->
+    <div id="info-view-avond" class="view">
       <div class="card">
         <div style="text-align: center; margin-bottom: 20px;">
           <i class="fas fa-check-circle fa-3x" style="color: var(--primary-color); margin-bottom: 10px;"></i>
@@ -303,8 +349,6 @@
 
         <div class="info-section">
           <h3><i class="fas fa-clock"></i> Programma & Tijden</h3>
-          <p><strong>Ceremonie:</strong> 14:00 uur (Inloop vanaf 13:30)</p>
-          <p><strong>Diner:</strong> 17:30 uur</p>
           <p><strong>Avondfeest:</strong> 20:30 uur t/m 01:00 uur</p>
         </div>
 
@@ -480,9 +524,16 @@
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
-          showView('info-view');
+          const heeftDaggast = guestsData.some(g => g.typeGast && g.typeGast.toLowerCase() === 'daggast');
+          if (heeftDaggast) {
+            showView('info-view-dag');
+          }
+          else {
+            showView('info-view-avond');
+          }
           window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
+        } 
+        else {
           alert('Fout bij opslaan: ' + data.message);
         }
       })
